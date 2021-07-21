@@ -9,6 +9,11 @@ async function fillPokemonData(name, order) {
   // puedes explorar los elementos HTML utilizando las Dev Tools de tu
   // navegador.
 
+  const id = `imagen-pokemon-${order}`;
+  const imagen = document.getElementById(id);
+  imagen.setAttribute('src', pokemonData.imagen);
+  
+
   // 2) Utilizando los stats de cada pokemon, deberás rellenar cada una de las
   // barras que figuran en la card. Dependiendo de la cantidad de cada atributo
   // tendrás que decidir el color que tendrá la barra en cada caso:
@@ -18,14 +23,67 @@ async function fillPokemonData(name, order) {
   // Deberás utilizar las clases que se encuentran en el archivo styles.css
 
   //ESCRIBE TU CÓDIGO A CONTINUACIÓN DENTRO DE LA FUNCIÓN:
+
+//  <div id="barra-hp-${order}"></div>
+//  <span id="cantidad-hp-${order}"></span>
+
+  for (const stat of pokemonData.stats) {
+    let id = `barra-${stat.name}-${order}`;
+    const barra = document.getElementById(id);
+    const color = stat.amount < 35 ? 'rojo' : (stat.amount >= 35 && stat.amount < 70 ? 'amarillo' : 'verde');
+    barra.classList.add(color);
+    barra.style.width = `${stat.amount}%`;
+    const cantidad = document.getElementById(id.replace('barra','cantidad'));
+    cantidad.textContent = `${stat.amount}%`;
+    
+  }
+
 }
 
 //LISTADO DE POKEMONS - PUEDES CAMBIAR POR TU FAVORITO!
-const pokemons = ["pikachu", "bulbasaur", "charmander", "diglett"];
+const pokemons = ["chikorita", "bulbasaur", "charmander", "kadabra"];
 
-//INICIALIZADOR - NO TOCAR
+
+Promise.resolve()
+.then(
+  inicializador
+)
+.then(
+  crearSpinner
+)
+.then(
+  setTimeout(
+    quitarSpinner,1000
+
+  )
+)
+.then(()=>{
+  console.log('fuimo.');
+})
+
+
+function inicializador() {
+  //INICIALIZADOR - NO TOCAR
 pokemons.forEach((pokemon, index) => {
   const pokemonNumber = index + 1;
   createPokemonCard(pokemon, pokemonNumber);
   fillPokemonData(pokemon, pokemonNumber);
 });
+
+}
+
+function quitarSpinner() {
+  document.getElementById('contenedor-carga').classList.add('hidden');
+  document.querySelector("main").classList.remove('hidden');
+}
+
+function crearSpinner() {
+  const body = document.querySelector("body");
+  document.querySelector("main").classList.add('hidden');
+  const contenedor = document.createElement('div');
+  contenedor.setAttribute('id','contenedor-carga');
+  const spinner = document.createElement('div');
+  spinner.setAttribute('id','carga');
+  contenedor.appendChild(spinner);
+  body.appendChild(contenedor);
+}
