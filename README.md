@@ -8,4 +8,3 @@ Una vez realizada la actividad, deberás ver el siguiente resultado final:
 
 <img src="./assets/pokemon-finish.png" width='90%'>
 
-Atrapalos ya! <img src='https://image.flaticon.com/icons/png/512/528/528098.png' width="25px"> <img src='https://image.flaticon.com/icons/png/512/189/189001.png' width="25px"><img src='https://image.flaticon.com/icons/png/512/188/188993.png' width="25px">
